@@ -6,24 +6,82 @@ namespace Practico1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Práctico 1");
-            Console.WriteLine("Elija el ejercicio 1-8 que desea ejecutar");
-            Action[] ejercicios = [Ejercicio1, Ejercicio2, Ejercicio3, Ejercicio4, Ejercicio5, Ejercicio6, Ejercicio7, Ejercicio8];
-            int value;
-            bool esValido;
-            do
-            {
-                Console.Write("Ingrese número de ejercicio (1-8): ");
-                string? input = Console.ReadLine();
-                esValido = int.TryParse(input, out value);
-                if (!esValido || value < 1 || value > 8)
-                {
-                    Console.WriteLine($"{input} no es un número válido, debe estar entre 1 y 8");
-                }
-            } while (!esValido);
+            Opciones();
+        }
 
-            Action ejercicio = ejercicios[value - 1];
-            ejercicio();
+        static void Menu()
+        {
+            string[] titulos = { "Ejercicio 1", "Ejercicio 2", "Ejercicio 3", "Ejercicio 4", "Ejercicio 5", "Ejercicio 6", "Ejercicio 7", "Ejercicio 8" };
+
+            int opcion = 1;
+            foreach (string titulo in titulos)
+            {
+                Console.WriteLine($"{opcion} - {titulo}");
+                opcion++;
+            }
+        }
+
+        static int LeerEntero()
+        {
+            string? texto = Console.ReadLine();
+            int resultado;
+            while (!int.TryParse(texto, out resultado))
+            {
+                Console.Write("Error. Vuelva a ingresar el valor:");
+                texto = Console.ReadLine();
+            }
+            return resultado;
+        }
+
+        static void Opciones()
+        {
+            int valor = -1;
+            while (valor != 0)
+            {
+                Console.Clear();
+                Menu();
+                Console.Write("Ingrese opcion:");
+                valor = LeerEntero();
+                switch (valor)
+                {
+                    case 1:
+                        Ejercicio1();
+                        break;
+                    case 2:
+                        Ejercicio2();
+                        break;
+                    case 3:
+                        Ejercicio3();
+                        break;
+                    case 4:
+                        Ejercicio4();
+                        break;
+                    case 5:
+                        Ejercicio5();
+                        break;
+                    case 6:
+                        Ejercicio6();
+                        break;
+                    case 7:
+                        Ejercicio7();
+                        break;
+                    case 8:
+                        Ejercicio8();
+                        break;
+                    case 9:
+                        Ejercicio9();
+                        break;
+                    default:
+                        break;
+                }
+                Console.ReadLine();
+            }
+            Console.WriteLine("Proceso terminado");
+        }
+
+        static void Ejercicio9()
+        {
+
         }
         static int SolicitarNumero(string? texto)
         {
@@ -286,10 +344,10 @@ namespace Practico1
         {
             Console.WriteLine("Solicitar números hasta que ingrese el 0 (fin del ingreso).\nSe debe comparar con un número random e indicar cuando son iguales.");
             int numeroAleatorio = 0;
+            Random random = new();
+            numeroAleatorio = random.Next(0, 10);
             SeguirIntentando((int value) =>
             {
-                Random random = new();
-                numeroAleatorio = random.Next(0, 10);
                 bool esElNumero = value == numeroAleatorio;
                 if (esElNumero)
                 {
